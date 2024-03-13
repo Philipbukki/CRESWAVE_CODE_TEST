@@ -1,17 +1,19 @@
 package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.CommentDto;
+import com.pbukki.creswave.dto.CommentResponseDto;
 import com.pbukki.creswave.service.CommentService;
+import com.pbukki.creswave.utilities.AppConstants;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
-
 @RestController
-@RequestMapping("/api/posts/{postId}/comments")
+@RequestMapping(value = "/api/posts/{postId}/comments", produces= MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class CommentController {
 
@@ -24,9 +26,14 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<CommentDto>> getAllCommentsByPost(@PathVariable long postId)
+    public ResponseEntity<CommentResponseDto> getAllCommentsByPost(
+            @PathVariable long postId,
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_FIELD, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir)
     {
-        return ResponseEntity.ok(commentService.getAllCommentsByPost(postId));
+        return ResponseEntity.ok(commentService.getAllCommentsByPost(postId,pageNo, pageSize, sortBy, sortDir));
     }
 
     @GetMapping("/{commentId}")

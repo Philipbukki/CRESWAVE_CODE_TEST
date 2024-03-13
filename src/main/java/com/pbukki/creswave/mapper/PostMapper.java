@@ -14,6 +14,7 @@ public class PostMapper {
     {
         postDto.setTitle(post.getTitle());
         postDto.setContent(post.getContent());
+        postDto.setComments(post.getComments());
         return postDto;
     }
 

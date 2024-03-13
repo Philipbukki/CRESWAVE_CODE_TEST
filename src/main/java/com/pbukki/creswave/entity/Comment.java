@@ -18,6 +18,6 @@ public class Comment {
     private String body;
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "post_id",nullable = false)
+    @JoinColumn(name = "post_id")
     private Post post;
 }

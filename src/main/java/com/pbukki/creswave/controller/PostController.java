@@ -1,9 +1,12 @@
 package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.PostDto;
+import com.pbukki.creswave.dto.PostResponseDto;
 import com.pbukki.creswave.service.PostService;
+import com.pbukki.creswave.utilities.AppConstants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +20,15 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("")
-    public ResponseEntity<List<PostDto>> getPosts()
+    public ResponseEntity<PostResponseDto> getPosts(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_FIELD, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir)
     {
-        return ResponseEntity.ok(postService.listPosts());
+        return ResponseEntity.ok(postService.listPosts(pageNo,pageSize,sortBy,sortDir));
     }
+
     @GetMapping("/{postId}")
     public ResponseEntity<PostDto> getPost(@PathVariable long postId)
     {

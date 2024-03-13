@@ -1,5 +1,6 @@
 package com.pbukki.creswave.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pbukki.creswave.entity.Post;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,5 +14,6 @@ public class CommentDto {
     @NotBlank
     private String body;
     @NotNull
+    @JsonIgnore
     private Post post;
 }

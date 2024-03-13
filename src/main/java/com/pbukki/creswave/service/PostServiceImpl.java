@@ -1,14 +1,16 @@
 package com.pbukki.creswave.service;
 
 import com.pbukki.creswave.dto.PostDto;
+import com.pbukki.creswave.dto.PostResponseDto;
 import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.exceptions.ResourceNotFoundException;
 import com.pbukki.creswave.mapper.PostMapper;
 import com.pbukki.creswave.repository.PostRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,21 +18,29 @@ public class PostServiceImpl implements PostService{
 
     private PostRepository postRepository;
     @Override
-    public PostDto createPost(PostDto postDto) {
+    public PostDto createPost(PostDto postDto)
+    {
         Post post = PostMapper.MapToEntity(postDto, new Post());
         return PostMapper.MapToDto(post, new PostDto());
     }
 
     @Override
-    public List<PostDto> listPosts() {
+    public PostResponseDto listPosts(int pageNo, int pageSize, String sortBy, String sortDir)
+    {
+        Sort  sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending():
+                Sort.by(sortBy).descending();
+        PageRequest pageable = PageRequest.of(pageNo,pageSize,sort);
+        Page<Post> postPage = postRepository.findAll(pageable);
 
-        List<Post> posts = postRepository.findAll();
-        return posts.stream().map(post->PostMapper.MapToDto(post, new PostDto())).
-                collect(Collectors.toList());
+        Page<PostDto> posts = postPage.map(post->PostMapper.MapToDto(post, new PostDto()));
+
+        return PostResponseDto.build(posts.getContent(),posts.getNumber(),
+                posts.getSize(),posts.getTotalElements(),posts.getTotalPages(),posts.isLast());
     }
 
     @Override
-    public PostDto getPost(long postId) {
+    public PostDto getPost(long postId)
+    {
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new ResourceNotFoundException("Post","id",postId)
         );
