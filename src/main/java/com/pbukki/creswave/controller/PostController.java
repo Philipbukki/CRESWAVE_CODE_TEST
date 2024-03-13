@@ -2,6 +2,7 @@ package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.PostDto;
 import com.pbukki.creswave.dto.PostResponseDto;
+import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.service.PostService;
 import com.pbukki.creswave.utilities.AppConstants;
 import jakarta.validation.Valid;
@@ -45,6 +46,16 @@ public class PostController {
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId)
     {
         return ResponseEntity.ok(postService.updatePost(postDto,postId));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PostDto>> searchPostsByTitleOrContent(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String content)
+    {
+
+        return  ResponseEntity.ok(postService.findByTitleOrContent(title,content));
+
     }
 
 }

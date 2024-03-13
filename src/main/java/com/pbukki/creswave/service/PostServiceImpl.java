@@ -12,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService{
@@ -61,4 +64,15 @@ public class PostServiceImpl implements PostService{
         return  PostMapper.MapToDto(savedPost, new PostDto());
 
     }
+
+    @Override
+    public List<PostDto> findByTitleOrContent(String title, String content)
+    {
+        List<Post> posts = postRepository.findByTitleContainingOrContentContaining(title,content);
+
+        return posts.stream().map(post->PostMapper.MapToDto(post,new PostDto()))
+                .collect(Collectors.toList());
+
+    }
+
 }
