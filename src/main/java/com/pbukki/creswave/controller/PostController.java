@@ -2,12 +2,10 @@ package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.PostDto;
 import com.pbukki.creswave.dto.PostResponseDto;
-import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.service.PostService;
 import com.pbukki.creswave.utilities.AppConstants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
