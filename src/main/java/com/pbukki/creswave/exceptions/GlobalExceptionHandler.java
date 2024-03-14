@@ -48,6 +48,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 
     }
+    @ExceptionHandler(UnAuthorizedUserException.class)
+    public ResponseEntity<ErrorResponseDto> handleUnAuthorizedUserException(
+            UnAuthorizedUserException ex, WebRequest webRequest)
+    {
+        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.UNAUTHORIZED.value(),ex.getMessage()
+                ,webRequest.getDescription(false));
+
+        return new ResponseEntity<>(error,HttpStatus.UNAUTHORIZED);
+
+    }
+
+
 
 
 }

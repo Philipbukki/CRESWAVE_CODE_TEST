@@ -6,7 +6,9 @@ import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.exceptions.ResourceNotFoundException;
 import com.pbukki.creswave.mapper.PostMapper;
 import com.pbukki.creswave.repository.PostRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,16 +19,22 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class PostServiceImpl implements PostService{
 
     private PostRepository postRepository;
+
+    //Creates a new blog post record
     @Override
+    @Transactional
     public PostDto createPost(PostDto postDto)
     {
         Post post = PostMapper.MapToEntity(postDto, new Post());
+        postRepository.save(post);
         return PostMapper.MapToDto(post, new PostDto());
     }
 
+    //Returns a list of paginated blog posts
     @Override
     public PostResponseDto listPosts(int pageNo, int pageSize, String sortBy, String sortDir)
     {
@@ -41,6 +49,7 @@ public class PostServiceImpl implements PostService{
                 posts.getSize(),posts.getTotalElements(),posts.getTotalPages(),posts.isLast());
     }
 
+    //Retrieves post by id
     @Override
     public PostDto getPost(long postId)
     {
@@ -50,21 +59,23 @@ public class PostServiceImpl implements PostService{
         return PostMapper.MapToDto(post, new PostDto());
     }
 
+    //Retrieves a post from the db using post id and updates the retrieved post
     @Override
-    public PostDto updatePost(PostDto updatedPost, long postId) {
+    public PostDto updatePost(PostDto updatedPost, long postId)
+    {
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new ResourceNotFoundException("Post","id",postId)
         );
 
-        post.setTitle(updatedPost.getTitle());
-        post.setContent(updatedPost.getContent());
-
-        Post savedPost = postRepository.save(post);
+      log.info("updating post");
+      Post savedPost = postRepository.save(PostMapper.MapToEntity(updatedPost, post));
+      log.info("post updated");
 
         return  PostMapper.MapToDto(savedPost, new PostDto());
 
     }
 
+    //Filters blog posts by their title or content
     @Override
     public List<PostDto> findByTitleOrContent(String title, String content)
     {

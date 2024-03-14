@@ -37,6 +37,14 @@ public class AuthServiceImpl implements AuthService{
         this.roleRepository = roleRepository;
     }
 
+   @Override
+    public User getLoggedInUser()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByUsernameOrEmail(username,username).get();
+    }
+
     @Override
     public String login(LoginDto loginDto) {
         Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

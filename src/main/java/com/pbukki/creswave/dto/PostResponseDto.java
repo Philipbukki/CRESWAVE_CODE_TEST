@@ -14,4 +14,5 @@ public class PostResponseDto {
     private long totalElements;
     private long totalPages;
     private boolean last;
+
 }

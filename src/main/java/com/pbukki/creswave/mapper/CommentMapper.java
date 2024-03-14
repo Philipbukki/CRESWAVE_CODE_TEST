@@ -8,6 +8,7 @@ public class CommentMapper
     public static Comment MapToEntity(CommentDto commentDto, Comment comment)
     {
         comment.setBody(commentDto.getBody());
+        comment.setPost(commentDto.getPost());
         return comment;
 
     }
@@ -15,6 +16,7 @@ public class CommentMapper
     {
         commentDto.setBody(comment.getBody());
         commentDto.setPost(comment.getPost());
+        commentDto.setCreatedBy(comment.getCreatedBy());
         return commentDto;
     }
 }
