@@ -32,17 +32,27 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleResourceNotFoundException(
             ResourceNotFoundException ex, WebRequest webRequest){
-        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.UNAUTHORIZED.value(),ex.getMessage()
+        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),ex.getMessage()
                 ,webRequest.getDescription(false));
 
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 
     }
 
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponseDto> handleGenericException(
+//            Exception ex, WebRequest webRequest){
+//        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage()
+//                ,webRequest.getDescription(true));
+//
+//        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//    }
+
     @ExceptionHandler(BlogErrorException.class)
     public ResponseEntity<ErrorResponseDto> handleBlogErrorException(
             BlogErrorException ex, WebRequest webRequest){
-        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.UNAUTHORIZED.value(),ex.getMessage()
+        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),ex.getMessage()
                 ,webRequest.getDescription(false));
 
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);

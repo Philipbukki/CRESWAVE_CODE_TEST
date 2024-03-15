@@ -22,9 +22,9 @@ public class Comment{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String body;
-    @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "post_id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Post post;
     @CreatedBy
     private String createdBy;

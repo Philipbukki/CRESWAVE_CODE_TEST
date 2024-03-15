@@ -8,6 +8,7 @@ import com.pbukki.creswave.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +20,9 @@ import java.util.Set;
 )
 @Data
 @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class PostDto {
+    private long id;
     @NotBlank(message = "Title cannot be blank")
     @Schema(name = "title", example = "Effective Java")
     private String title;

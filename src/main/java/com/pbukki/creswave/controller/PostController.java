@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -93,6 +94,12 @@ public class PostController {
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId)
     {
         return ResponseEntity.ok(postService.updatePost(postDto,postId));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<String> deletePost(@PathVariable long postId)
+    {
+        return ResponseEntity.ok(postService.deletePost(postId));
     }
     @Operation(
             summary = "Search Posts",
