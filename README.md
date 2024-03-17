@@ -1,3 +1,4 @@
+#### Access the application using the link: http://localhost:8080/swagger-ui/index.html#/
 #### Start by creating the user using the register endpoint and then use login endpoint to login to the app.
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d94db8d1-23be-43ee-8286-022c5c732c31)
 ### Expected out put incase of successful login/SignIn
