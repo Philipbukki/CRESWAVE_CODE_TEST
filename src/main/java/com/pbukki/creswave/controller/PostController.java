@@ -88,6 +88,10 @@ public class PostController {
             description = "HTTP STATUS NOT_FOUND"
     )
     @ApiResponse(
+            responseCode = "401",
+            description = "HTTP STATUS UNAUTHORIZED"
+    )
+    @ApiResponse(
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
     )
@@ -96,6 +100,27 @@ public class PostController {
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId) throws InstantiationException, IllegalAccessException {
         return ResponseEntity.ok(postService.updatePost(postDto,postId));
     }
+
+    @Operation(
+            summary = "Delete Post",
+            description = "Endpoint for Deleting a Blog Post"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP STATUS OK"
+    )
+    @ApiResponse(
+            responseCode = "404",
+            description = "HTTP STATUS NOT_FOUND"
+    )
+    @ApiResponse(
+            responseCode = "401",
+            description = "HTTP STATUS UNAUTHORIZED"
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "HTTP STATUS BAD_REQUEST"
+    )
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable long postId) throws InstantiationException, IllegalAccessException {

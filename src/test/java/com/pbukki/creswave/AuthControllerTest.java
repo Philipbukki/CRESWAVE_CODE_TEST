@@ -77,10 +77,9 @@ public class AuthControllerTest {
 
         RegisterDto registerDto = RegisterDto.builder()
                 .username("username")
-                .email("email@example.com")
+                .email(" ")
                 .password(null)
                 .build();
-
 
         AuthService mockAuthService = Mockito.mock(AuthService.class);
 

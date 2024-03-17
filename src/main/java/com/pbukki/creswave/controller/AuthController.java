@@ -48,7 +48,6 @@ public class AuthController {
         return ResponseEntity.ok(jwtAuthResponse);
     }
 
-
     @Operation(
             summary = "Register/SignUp User",
             description = "Endpoint for User Registration"

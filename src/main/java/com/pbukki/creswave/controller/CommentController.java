@@ -40,6 +40,10 @@ public class CommentController {
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
     )
+    @ApiResponse(
+            responseCode = "401",
+            description = "HTTP STATUS UNAUTHORIZED"
+    )
     @PostMapping
     public ResponseEntity<CommentDto> addComment(@PathVariable long postId,@Valid @RequestBody CommentDto commentDto)
     {
@@ -116,6 +120,10 @@ public class CommentController {
     @ApiResponse(
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
+    )
+    @ApiResponse(
+            responseCode = "401",
+            description = "HTTP STATUS UNAUTHORIZED"
     )
     @ApiResponse(
             responseCode = "404",

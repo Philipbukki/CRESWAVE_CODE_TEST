@@ -39,15 +39,15 @@ public class GlobalExceptionHandler {
 
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorResponseDto> handleGenericException(
-//            Exception ex, WebRequest webRequest){
-//        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage()
-//                ,webRequest.getDescription(true));
-//
-//        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> handleGenericException(
+            Exception ex, WebRequest webRequest){
+        ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage()
+                ,webRequest.getDescription(true));
+
+        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 
     @ExceptionHandler(BlogErrorException.class)
     public ResponseEntity<ErrorResponseDto> handleBlogErrorException(
@@ -58,6 +58,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 
     }
+
     @ExceptionHandler(UnAuthorizedUserException.class)
     public ResponseEntity<ErrorResponseDto> handleUnAuthorizedUserException(
             UnAuthorizedUserException ex, WebRequest webRequest)
