@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -75,9 +77,13 @@ public class PostServiceImpl implements PostService {
         );
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUser = authService.getLoggedInUser().getUsername();
+        String currentUser = authentication.getName();
 
-        if (post.getCreatedBy().equals(currentUser) || authService.hasAnyRole(authentication, "ROLE_ADMIN")) {
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        if (post.getCreatedBy().equals(currentUser) || isAdmin) {
             // Update post logic
             log.info("updating post");
             Post savedPost = postRepository.save(PostMapper.MapToEntity(updatedPost, post));
@@ -100,11 +106,10 @@ public class PostServiceImpl implements PostService {
         String currentUser = authService.getLoggedInUser().getUsername();
 
         if (post.getCreatedBy().equals(currentUser) ||authService.hasAnyRole(authentication, "ROLE_ADMIN")) {
-            log.info("deleting  post");
 
+            log.info("deleting  post");
             postRepository.delete(post);
             log.info("Updating post");
-
             return "Blog post deleted successfully";
 
         } else {

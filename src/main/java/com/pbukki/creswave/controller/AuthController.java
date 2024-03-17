@@ -6,6 +6,7 @@ import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 @Tag(
         name="REST Endpoints for Authentication",
@@ -36,6 +38,10 @@ public class AuthController {
     @ApiResponse(
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
+    )
+    @ApiResponse(
+            responseCode = "500",
+            description = "INTERNAL SERVER ERROR"
     )
 
     @PostMapping(value = {"/login", "/signIn"})

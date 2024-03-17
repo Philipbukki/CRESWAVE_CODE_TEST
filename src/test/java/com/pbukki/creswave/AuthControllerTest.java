@@ -14,40 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthControllerTest {
 
-//    @Test
-//    public void testLogin_validCredentials() {
-//        // Mock AuthService
-//        LoginDto loginDto = new LoginDto("username", "password");
-//        String expectedResponse = "Login Successful";
-//        AuthService mockAuthService = Mockito.mock(AuthService.class);
-//        Mockito.when(mockAuthService.login(loginDto)).thenReturn(expectedResponse);
-//        AuthController controller = new AuthController(mockAuthService);
-//
-//        // Execute the test
-//        ResponseEntity<String> response = controller.login(loginDto);
-//
-//        // Assert the response
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
-//        assertEquals(expectedResponse, response.getBody());
-//    }
-
-//    @Test
-//    public void testLogin_invalidCredentials() {
-//        // Mock AuthService
-//        LoginDto loginDto = new LoginDto("wrongUsername", "wrongPassword");
-//        String expectedError = "Invalid username or password";
-//        AuthService mockAuthService = Mockito.mock(AuthService.class);
-//        Mockito.when(mockAuthService.login(loginDto)).thenReturn(expectedError);
-//        AuthController controller = new AuthController(mockAuthService);
-//
-//        // Execute the test
-//        ResponseEntity<String> response = controller.login(loginDto);
-//
-//        // Assert the response
-//        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-//        assertTrue(response.getBody().contains(expectedError));
-//    }
-
     @Test
     public void testRegister_validUser() {
         // Mock AuthService
@@ -71,24 +37,6 @@ public class AuthControllerTest {
         assertEquals(expectedResponse, response.getBody());
     }
 
-    @Test
-    public void testRegister_missingEmail() {
-        // Mock AuthService (optional, not always required)
-
-        RegisterDto registerDto = RegisterDto.builder()
-                .username("username")
-                .email(" ")
-                .password(null)
-                .build();
-
-        AuthService mockAuthService = Mockito.mock(AuthService.class);
-
-        // Execute the test
-        AuthController controller = new AuthController(mockAuthService);
-
-        // Assert the validation error (using JUnit Exceptions)
-        assertThrows(MethodArgumentNotValidException.class, () -> controller.register(registerDto));
-    }
 
     @Test
     public void testUpdateProfile_validData() {

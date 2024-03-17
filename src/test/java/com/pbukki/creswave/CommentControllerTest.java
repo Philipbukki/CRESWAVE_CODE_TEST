@@ -3,7 +3,6 @@ package com.pbukki.creswave;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pbukki.creswave.controller.CommentController;
 import com.pbukki.creswave.dto.CommentDto;
-import com.pbukki.creswave.dto.CommentResponseDto;
 import com.pbukki.creswave.service.CommentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
