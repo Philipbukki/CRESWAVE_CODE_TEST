@@ -104,6 +104,10 @@ public class CommentController {
             description = "HTTP STATUS BAD_REQUEST"
     )
     @ApiResponse(
+            responseCode = "401",
+            description = "HTTP STATUS UNAUTHORIZED"
+    )
+    @ApiResponse(
             responseCode = "404",
             description = "HTTP STATUS NOT_FOUND"
     )

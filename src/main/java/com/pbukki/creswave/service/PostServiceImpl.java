@@ -31,6 +31,14 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
     private AuthService authService;
 
+
+
+    private Post getPostByIdOrThrow(Long postId) {
+        return postRepository.findById(postId).orElseThrow(
+                () -> new ResourceNotFoundException("Post", "id", postId)
+        );
+    }
+
     //Creates a new blog post record
     @Override
     @Transactional
@@ -72,10 +80,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto updatePost(PostDto updatedPost, long postId)
     {
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new ResourceNotFoundException("Post", "id", postId)
-        );
-
+        Post post = getPostByIdOrThrow(postId);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = authentication.getName();
 
@@ -98,9 +103,7 @@ public class PostServiceImpl implements PostService {
 
     public String deletePost(long postId) {
 
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new ResourceNotFoundException("Post", "id", postId)
-        );
+        Post post = getPostByIdOrThrow(postId);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = authService.getLoggedInUser().getUsername();

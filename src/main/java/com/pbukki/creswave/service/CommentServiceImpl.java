@@ -16,10 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 
 @Service
@@ -40,12 +39,6 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findById(commentId).orElseThrow(
                 () -> new ResourceNotFoundException("Comment", "id", commentId)
         );
-    }
-
-    private void validateUserActions(Comment comment) {
-        if (authService.getLoggedInUser().getUsername().equals(comment.getCreatedBy())) {
-            throw new UnAuthorizedUserException("You cannot edit or delete a comment belonging to someone else");
-        }
     }
 
     private void validateCommentBelongsToPost(Comment comment, Post post) {
@@ -96,28 +89,28 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto updateComment(long postId, long commentId, CommentDto commentDto) {
+    public CommentDto updateComment(long postId, long commentId, CommentDto commentDto)
+    {
         Post post = getPostByIdOrThrow(postId);
         Comment comment = getCommentByIdOrThrow(commentId);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUser = authService.getLoggedInUser().getUsername();
-        log.error(" "+authentication);
+        String currentUser = authentication.getName();
+
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
         log.warn("creator "+comment.getCreatedBy());
         log.info("current "+currentUser);
-        log.info("check role exist "+authService.hasAnyRole(authentication, "ROLE_ADMIN"));
+        log.warn(" "+isAdmin);
 
-        if (!comment.getCreatedBy().equalsIgnoreCase(currentUser) || authService.hasAnyRole(authentication, "ROLE_ADMIN"))
+        if (comment.getCreatedBy().equals(currentUser) || isAdmin)
         {
-            validateUserActions(comment);
             validateCommentBelongsToPost(comment, post);
             log.info("validations complete");
-
-            log.info(""+commentDto);
             Comment updatedComment = CommentMapper.MapToEntity(commentDto, comment);
-
             log.info("mapping complete");
-
             return CommentMapper.MapToDto(commentRepository.save(updatedComment), new CommentDto());
 
         } else {
@@ -133,11 +126,14 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = getCommentByIdOrThrow(commentId);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUser = authService.getLoggedInUser().getUsername();
+        String currentUser = authentication.getName();
 
-        if (comment.getCreatedBy().equals(currentUser) || authService.hasAnyRole(authentication, "ROLE_ADMIN"))
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        if (comment.getCreatedBy().equals(currentUser) || isAdmin)
         {
-            validateUserActions(comment);
             validateCommentBelongsToPost(comment, post);
             commentRepository.delete(comment);
             return "Comment deleted successfully";
