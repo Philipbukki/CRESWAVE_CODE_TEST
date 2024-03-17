@@ -2,6 +2,8 @@
 #### Users are created with default role of "ROLE_USER"
 #### To add "ROLE_ADMIN" for testing purposes, after running the application, insert one in roles table, with id 2 and name "ROLE_ADMIN" 
 #### additionaly add one record with an existing user Id i.e 1 and role id of 2 in user_roles table.
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/f140cafd-f4ce-451f-aba3-f14101b27ac8)
+
 #### Start by creating the user using the register endpoint and then use login endpoint to login to the app.
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d94db8d1-23be-43ee-8286-022c5c732c31)
 ### Expected out put incase of successful login/SignIn
