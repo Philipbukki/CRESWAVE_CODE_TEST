@@ -1,6 +1,7 @@
 package com.pbukki.creswave.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,5 +26,6 @@ public class CommentDto {
     private String body;
     @JsonIgnore
     private Post post;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String createdBy;
 }

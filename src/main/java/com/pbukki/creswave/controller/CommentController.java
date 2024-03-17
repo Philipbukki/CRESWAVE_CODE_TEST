@@ -33,16 +33,16 @@ public class CommentController {
             description = "Endpoint for Adding comment to a Post"
     )
     @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
     )
     @ApiResponse(
             responseCode = "401",
             description = "HTTP STATUS UNAUTHORIZED"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "HTTP STATUS CREATED"
     )
     @PostMapping
     public ResponseEntity<CommentDto> addComment(@PathVariable long postId,@Valid @RequestBody CommentDto commentDto)
@@ -79,6 +79,10 @@ public class CommentController {
     @ApiResponse(
             responseCode = "404",
             description = "HTTP STATUS NOT_FOUND"
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "HTTP STATUS BAD_REQUEST"
     )
 
     @GetMapping("/{commentId}")
