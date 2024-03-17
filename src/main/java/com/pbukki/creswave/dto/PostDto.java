@@ -22,6 +22,8 @@ import java.util.Set;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class PostDto {
+
+    @JsonIgnore
     private long id;
     @NotBlank(message = "Title cannot be blank")
     @Schema(name = "title", example = "Effective Java")

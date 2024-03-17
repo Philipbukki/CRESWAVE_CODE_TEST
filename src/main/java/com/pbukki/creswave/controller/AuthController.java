@@ -1,5 +1,6 @@
 package com.pbukki.creswave.controller;
 
+import com.pbukki.creswave.dto.JWTAuthResponse;
 import com.pbukki.creswave.dto.LoginDto;
 import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.service.AuthService;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Tag(
         name="REST Endpoints for Authentication",
@@ -37,12 +38,16 @@ public class AuthController {
             description = "HTTP STATUS BAD_REQUEST"
     )
 
-    @PostMapping(value = {"login","signIn"})
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDto loginDto)
-    {
-        String response = authService.login(loginDto);
-        return ResponseEntity.ok(response);
+    @PostMapping(value = {"/login", "/signIn"})
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
+        String token = authService.login(loginDto);
+
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return ResponseEntity.ok(jwtAuthResponse);
     }
+
 
     @Operation(
             summary = "Register/SignUp User",
@@ -82,8 +87,7 @@ public class AuthController {
     @PutMapping("/update_profile")
     public ResponseEntity<String> updateProfile(
             @RequestParam String userName, @RequestParam String password,
-            @Valid @RequestBody RegisterDto updateDto)
-    {
+            @Valid @RequestBody RegisterDto updateDto) throws InstantiationException, IllegalAccessException {
             return ResponseEntity
                     .ok()
                     .body(authService.updateProfile(userName, password, updateDto));

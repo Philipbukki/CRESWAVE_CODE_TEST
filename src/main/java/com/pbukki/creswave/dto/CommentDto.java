@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommentDto {
 
+    @JsonIgnore
     private long id;
     @NotBlank(message = "Comment Body cannot be blank")
     private String body;
     @JsonIgnore
     private Post post;
-    @JsonIgnore
     private String createdBy;
 }

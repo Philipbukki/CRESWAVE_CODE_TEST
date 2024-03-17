@@ -2,7 +2,6 @@ package com.pbukki.creswave.security;
 
 import com.pbukki.creswave.entity.User;
 import com.pbukki.creswave.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +17,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
 
-    @Autowired
     public CustomUserDetailsService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
@@ -36,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(role->
                         new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(),
                 authorities);
     }

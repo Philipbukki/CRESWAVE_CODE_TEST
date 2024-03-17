@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 
 
 @Service
@@ -96,21 +97,29 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto updateComment(long postId, long commentId, CommentDto commentDto) {
-
         Post post = getPostByIdOrThrow(postId);
         Comment comment = getCommentByIdOrThrow(commentId);
 
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = authService.getLoggedInUser().getUsername();
+        log.error(" "+authentication);
+        log.warn("creator "+comment.getCreatedBy());
+        log.info("current "+currentUser);
+        log.info("check role exist "+authService.hasAnyRole(authentication, "ROLE_ADMIN"));
 
-        if (comment.getCreatedBy().equals(currentUser)
-                || authService.hasAnyRole(authentication, "ROLE_ADMIN")) {
+        if (!comment.getCreatedBy().equalsIgnoreCase(currentUser) || authService.hasAnyRole(authentication, "ROLE_ADMIN"))
+        {
             validateUserActions(comment);
             validateCommentBelongsToPost(comment, post);
+            log.info("validations complete");
+
+            log.info(""+commentDto);
             Comment updatedComment = CommentMapper.MapToEntity(commentDto, comment);
 
+            log.info("mapping complete");
+
             return CommentMapper.MapToDto(commentRepository.save(updatedComment), new CommentDto());
+
         } else {
             throw new UnAuthorizedUserException("You can't update a comment belonging to someone else");
         }
@@ -130,7 +139,6 @@ public class CommentServiceImpl implements CommentService {
         {
             validateUserActions(comment);
             validateCommentBelongsToPost(comment, post);
-
             commentRepository.delete(comment);
             return "Comment deleted successfully";
 

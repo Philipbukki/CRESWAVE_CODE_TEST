@@ -6,6 +6,7 @@ import com.pbukki.creswave.service.CommentService;
 import com.pbukki.creswave.utilities.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,8 @@ import org.springframework.web.bind.annotation.*;
         description = "REST Endpoints for create, read,fetch, update and delete operations Posts Comments"
 )
 @RestController
-@RequestMapping(value = "/api/posts/{postId}/comments", produces= MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = "Bearer Authentication")
+@RequestMapping(value = "/api/v1/posts/{postId}/comments", produces= MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class CommentController {
 

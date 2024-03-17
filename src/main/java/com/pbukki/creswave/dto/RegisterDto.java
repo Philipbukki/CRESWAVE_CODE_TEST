@@ -1,6 +1,7 @@
 package com.pbukki.creswave.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pbukki.creswave.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +25,6 @@ public class RegisterDto
     @NotNull(message = "Password cannot be null")
     @Size(min = 6, max = 50, message = "Password must be between 6 and 50 characters")
     private String password;
-
+    @JsonIgnore
     private Set<Role> roles;
 }

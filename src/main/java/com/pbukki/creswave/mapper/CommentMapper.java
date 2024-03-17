@@ -8,7 +8,7 @@ public class CommentMapper
     public static Comment MapToEntity(CommentDto commentDto, Comment comment)
     {
         comment.setBody(commentDto.getBody());
-        comment.setPost(commentDto.getPost());
+//        comment.setPost(commentDto.getPost());
         return comment;
 
     }

@@ -16,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +32,8 @@ public class PostServiceImpl implements PostService {
     //Creates a new blog post record
     @Override
     @Transactional
-    public PostDto createPost(PostDto postDto) {
+    public PostDto createPost(PostDto postDto)
+    {
         Post post = PostMapper.MapToEntity(postDto, new Post());
         log.info("post assigned");
         postRepository.save(post);
@@ -40,7 +43,8 @@ public class PostServiceImpl implements PostService {
 
     //Returns a list of paginated blog posts
     @Override
-    public PostResponseDto listPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
+    public PostResponseDto listPosts(int pageNo, int pageSize, String sortBy, String sortDir)
+    {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() :
                 Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNo, pageSize, sort);
@@ -54,7 +58,8 @@ public class PostServiceImpl implements PostService {
 
     //Retrieves post by id
     @Override
-    public PostDto getPost(long postId) {
+    public PostDto getPost(long postId)
+    {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "id", postId)
         );
@@ -63,7 +68,8 @@ public class PostServiceImpl implements PostService {
 
     //Retrieves a post from the db using post id and updates the retrieved post
     @Override
-    public PostDto updatePost(PostDto updatedPost, long postId) {
+    public PostDto updatePost(PostDto updatedPost, long postId)
+    {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "id", postId)
         );
@@ -79,7 +85,7 @@ public class PostServiceImpl implements PostService {
             return PostMapper.MapToDto(savedPost, new PostDto());
 
         } else {
-            throw new UnAuthorizedUserException("Unauthorized to update post");
+            throw new UnAuthorizedUserException("You can't delete a post belonging to someone else");
         }
 
     }

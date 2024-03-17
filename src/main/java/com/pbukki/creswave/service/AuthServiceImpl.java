@@ -8,13 +8,15 @@ import com.pbukki.creswave.exceptions.BlogErrorException;
 import com.pbukki.creswave.exceptions.ResourceNotFoundException;
 import com.pbukki.creswave.repository.RoleRepository;
 import com.pbukki.creswave.repository.UserRepository;
+import com.pbukki.creswave.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +30,21 @@ public class AuthServiceImpl implements AuthService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
-                           RoleRepository roleRepository)
+                           RoleRepository roleRepository,
+                           JwtTokenProvider jwtTokenProvider
+    )
     {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
    @Override
@@ -46,16 +52,21 @@ public class AuthServiceImpl implements AuthService{
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        return userRepository.findByUsernameOrEmail(username,username).get();
+        log.info(username);
+        return userRepository.findByUsernameOrEmail(username,username).orElseThrow(
+                ()-> new BlogErrorException("You have provided incorrect credentials")
+        );
     }
 
     @Override
     public String login(LoginDto loginDto) {
-        Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsernameOrEmail(),loginDto.getPassword()
-        ));
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "User logged in successfully";
+
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     @Override
@@ -87,7 +98,6 @@ public class AuthServiceImpl implements AuthService{
         return authentication.getAuthorities().stream()
                 .anyMatch(authority -> Arrays.asList(roles).contains(authority.getAuthority()));
     }
-
 
     @Override
     public String updateProfile(String userName, String password, RegisterDto updateDto) {

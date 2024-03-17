@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="comments")
 @AllArgsConstructor @NoArgsConstructor
-@Data
-@EntityListeners(value = AuditingEntityListener.class)
-public class Comment{
+@Setter @Getter
+public class Comment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +25,4 @@ public class Comment{
     @JoinColumn(name = "post_id")
     @ManyToOne(cascade = CascadeType.REMOVE)
     private Post post;
-    @CreatedBy
-    private String createdBy;
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedBy
-    private String updatedBy;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 }

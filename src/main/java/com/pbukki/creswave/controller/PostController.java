@@ -6,6 +6,7 @@ import com.pbukki.creswave.service.PostService;
 import com.pbukki.creswave.utilities.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(
@@ -91,14 +93,12 @@ public class PostController {
     )
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId)
-    {
+    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId) throws InstantiationException, IllegalAccessException {
         return ResponseEntity.ok(postService.updatePost(postDto,postId));
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable long postId)
-    {
+    public ResponseEntity<String> deletePost(@PathVariable long postId) throws InstantiationException, IllegalAccessException {
         return ResponseEntity.ok(postService.deletePost(postId));
     }
     @Operation(
