@@ -1,4 +1,9 @@
 #### Access the application using the link: http://localhost:8080/swagger-ui/index.html#/
+#### Users are created with default role of "ROLE_USER"
+#### To add "ROLE_ADMIN" for testing purposes, after running the application, insert one in roles table, with id 2 and name "ROLE_ADMIN" 
+#### additionaly add one record with an existing user Id i.e 1 and role id of 2 in user_roles table.
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/f140cafd-f4ce-451f-aba3-f14101b27ac8)
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/16582bfa-196c-4af1-8d51-c5dc4c182cf4)
 #### Start by creating the user using the register endpoint and then use login endpoint to login to the app.
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d94db8d1-23be-43ee-8286-022c5c732c31)
 ### Expected out put incase of successful login/SignIn
@@ -23,7 +28,6 @@
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/51c01093-af35-41e0-ae1f-3066787aa0f7)
 #### Below is the endpoint for updating user profile
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/c55f1fd7-5ab0-406b-8eb8-ccc55b9157fc)
-
 #### To run the project, clone this project and edit the application.yml file for the db name and db credentials
 #### Incase you of any queries, reach out to me on email phil.bukki@gmail.com or on +254798335550
 
