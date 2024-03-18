@@ -2,6 +2,7 @@ package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.JWTAuthResponse;
 import com.pbukki.creswave.dto.LoginDto;
+import com.pbukki.creswave.dto.ProfileUpdateDto;
 import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -85,17 +86,12 @@ public class AuthController {
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST"
     )
-    @ApiResponse(
-            responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
-    )
     @PutMapping("/update_profile")
-    public ResponseEntity<String> updateProfile(
-            @RequestParam String userName, @RequestParam String password,
-            @Valid @RequestBody RegisterDto updateDto) throws InstantiationException, IllegalAccessException {
+    public ResponseEntity<String> updateProfile(@Valid @RequestBody ProfileUpdateDto updateDto)
+    {
             return ResponseEntity
                     .ok()
-                    .body(authService.updateProfile(userName, password, updateDto));
+                    .body(authService.updateProfile(updateDto));
 
     }
 

@@ -1,6 +1,7 @@
 package com.pbukki.creswave.service;
 
 import com.pbukki.creswave.dto.LoginDto;
+import com.pbukki.creswave.dto.ProfileUpdateDto;
 import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.entity.Role;
 import com.pbukki.creswave.entity.User;
@@ -100,48 +101,28 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
-    public String updateProfile(String userName, String password, RegisterDto updateDto) {
+    public String updateProfile(ProfileUpdateDto updateDto)
+    {
         // Get the authenticated user
-        User authenticatedUser = getLoggedInUser();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
 
-        User userToUpdate = userRepository
-                .findByUsernameOrEmail(authenticatedUser.getUsername(),authenticatedUser.getEmail()).orElseThrow(
-                        ()->new ResourceNotFoundException("User","username or email",authenticatedUser.getId())
-                );
-
-        log.info(authenticatedUser.getUsername());
-
-        log.error("Before mess*****************************************");
-
-        // Check if the provided username matches the authenticated user's username
-        if (!authenticatedUser.getUsername().equals(userName)) {
-            throw new BlogErrorException("You are not authorized to update this profile");
-        }
-
-        log.error("Before mess*****************************************");
-
-        // Check if the provided password matches the authenticated user's password
-        if (!passwordEncoder.matches(password, authenticatedUser.getPassword())) {
-            throw new BlogErrorException("You have entered incorrect username or password");
-        }
+        User userToUpdate = userRepository.findByUsernameOrEmail(currentUser,currentUser).orElseThrow(
+                ()-> new BlogErrorException("You are not authorized to update this user profile")
+        );
 
         log.info("Before updating user details");
         // Update user information
         userToUpdate.setName(updateDto.getName());
-        userToUpdate.setUsername(updateDto.getUsername());
-        userToUpdate.setEmail(updateDto.getEmail());
-
         log.info("After updating some user details user details");
 
         // Check if password is provided for update
         if (updateDto.getPassword() != null && !updateDto.getPassword().isEmpty()) {
             userToUpdate.setPassword(passwordEncoder.encode(updateDto.getPassword()));
         }
-
         log.info("After updating user details including possible password update");
-
         // Save updated user
-        userRepository.save(authenticatedUser);
+        userRepository.save(userToUpdate);
 
         return "User profile updated successfully";
     }

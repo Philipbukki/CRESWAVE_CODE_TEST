@@ -2,6 +2,7 @@ package com.pbukki.creswave;
 
 import com.pbukki.creswave.controller.AuthController;
 import com.pbukki.creswave.dto.LoginDto;
+import com.pbukki.creswave.dto.ProfileUpdateDto;
 import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.service.AuthService;
 import org.junit.jupiter.api.Test;
@@ -41,19 +42,11 @@ public class AuthControllerTest {
     @Test
     public void testUpdateProfile_validData() {
         // Mock AuthService
-        String username = "test_user";
-        String password = "test_password";
-
-        RegisterDto updateDto = RegisterDto.builder()
-                .username("username")
-                .email(null)
-                .password(null)
-                .build();
+        ProfileUpdateDto updateDto = ProfileUpdateDto.build("username",null);
 
         String expectedResponse = "Profile Updated Successfully";
         AuthService mockAuthService = Mockito.mock(AuthService.class);
-        Mockito.when(mockAuthService.updateProfile(username, password, updateDto)).thenReturn(expectedResponse);
-
+        Mockito.when(mockAuthService.updateProfile(updateDto)).thenReturn(expectedResponse);
 
     }
 }
