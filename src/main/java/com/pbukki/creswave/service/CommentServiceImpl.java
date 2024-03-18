@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     private PostRepository postRepository;
     private AuthService authService;
 
-    private Post getPostByIdOrThrow(Long postId) {
+    private Post getPostByIdOrThrow(long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "id", postId)
         );
