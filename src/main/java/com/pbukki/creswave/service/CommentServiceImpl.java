@@ -69,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
                 Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNo, pageSize, sort);
 
-        Page<Comment> postPage = commentRepository.findAll(pageable);
+        Page<Comment> postPage = commentRepository.findAllByPostId(postId, pageable);
 
         Page<CommentDto> comments = postPage.map(comment -> CommentMapper.MapToDto(comment, new CommentDto()));
 
