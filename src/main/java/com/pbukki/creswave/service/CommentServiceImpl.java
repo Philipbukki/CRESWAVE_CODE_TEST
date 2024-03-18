@@ -64,10 +64,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentResponseDto getAllCommentsByPost(long postId, int pageNo, int pageSize, String sortBy, String sortDir) {
+    public CommentResponseDto getAllCommentsByPost(long postId, int pageNo, int pageSize, String sortBy, String sortDir)
+    {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() :
                 Sort.by(sortBy).descending();
         PageRequest pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        //Throw exception when post does not exist with that given id
+        getPostByIdOrThrow(postId);
 
         Page<Comment> postPage = commentRepository.findAllByPostId(postId, pageable);
 
