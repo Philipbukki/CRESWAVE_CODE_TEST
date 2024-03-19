@@ -103,7 +103,7 @@ public class CommentServiceImpl implements CommentService {
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+                .anyMatch(role -> role.equalsIgnoreCase("ROLE_ADMIN"));
 
         log.warn("creator "+comment.getCreatedBy());
         log.info("current "+currentUser);

@@ -3,6 +3,7 @@ package com.pbukki.creswave.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pbukki.creswave.entity.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,6 +14,10 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Schema(
+        name = "Registration Details",
+        description = "Contains User Registration Details Data"
+)
 public class RegisterDto
 {
     @NotNull(message = "Name cannot be null")

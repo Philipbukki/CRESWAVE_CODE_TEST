@@ -59,7 +59,7 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS OK"
+            description = "HTTP STATUS NOT_FOUND"
     )
     @GetMapping
     public ResponseEntity<CommentResponseDto> getAllCommentsByPost(

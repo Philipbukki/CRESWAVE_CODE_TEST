@@ -6,17 +6,14 @@ import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.entity.Role;
 import com.pbukki.creswave.entity.User;
 import com.pbukki.creswave.exceptions.BlogErrorException;
-import com.pbukki.creswave.exceptions.ResourceNotFoundException;
 import com.pbukki.creswave.repository.RoleRepository;
 import com.pbukki.creswave.repository.UserRepository;
 import com.pbukki.creswave.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -86,11 +83,16 @@ public class AuthServiceImpl implements AuthService{
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setUsername(registerDto.getUsername());
         Set<Role> roles = new HashSet<>();
-        Role role = roleRepository.findByName("ROLE_USER").get();
-        roles.add(role);
+        roles.add(roleRepository.findByName("ROLE_USER").orElseThrow(
+                ()-> new BlogErrorException("Add role with name ROLE_USER to proceed")
+        ));
+        if(user.getUsername().equalsIgnoreCase("admin")){
+            roles.add(roleRepository.findByName("ROLE_ADMIN").orElseThrow(
+                    ()-> new BlogErrorException("Add role with name ROLE_ADMIN to proceed")
+            ));
+        }
         user.setRoles(roles);
         userRepository.save(user);
-
         return "User saved successfully";
 
     }
@@ -98,6 +100,15 @@ public class AuthServiceImpl implements AuthService{
     public boolean hasAnyRole(Authentication authentication, String... roles) {
         return authentication.getAuthorities().stream()
                 .anyMatch(authority -> Arrays.asList(roles).contains(authority.getAuthority()));
+    }
+    @Override
+    public Role addRole(Role role)
+    {
+        String checkRole = role.getName().toLowerCase();
+        if(roleRepository.existsByName(checkRole)){
+            throw new BlogErrorException("Role with that name already exist");
+        }
+        return roleRepository.save(role);
     }
 
     @Override
@@ -126,5 +137,7 @@ public class AuthServiceImpl implements AuthService{
 
         return "User profile updated successfully";
     }
+
+
 
 }

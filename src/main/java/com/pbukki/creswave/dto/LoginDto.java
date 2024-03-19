@@ -8,6 +8,10 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
+@Schema(
+        name = "Login Details",
+        description = "Contains User Login Details Data"
+)
 public class LoginDto {
     @NotBlank
     @Schema(name = "usernameOrEmail", example = "johndoe@gmail.com")

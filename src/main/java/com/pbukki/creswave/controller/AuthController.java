@@ -4,6 +4,7 @@ import com.pbukki.creswave.dto.JWTAuthResponse;
 import com.pbukki.creswave.dto.LoginDto;
 import com.pbukki.creswave.dto.ProfileUpdateDto;
 import com.pbukki.creswave.dto.RegisterDto;
+import com.pbukki.creswave.entity.Role;
 import com.pbukki.creswave.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -93,6 +94,27 @@ public class AuthController {
                     .ok()
                     .body(authService.updateProfile(updateDto));
 
+    }
+
+    @Operation(
+            summary = "Add User Role",
+            description = "Endpoint for Adding Available System User Roles"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "HTTP STATUS CREATED"
+    )
+
+    @ApiResponse(
+            responseCode = "400",
+            description = "HTTP STATUS BAD_REQUEST"
+    )
+    @PostMapping("/add_role")
+    public ResponseEntity<Role> addRole(@Valid @RequestBody Role role)
+    {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(authService.addRole(role));
     }
 
 }

@@ -86,7 +86,7 @@ public class PostServiceImpl implements PostService {
 
         boolean isAdmin = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+                .anyMatch(role -> role.equalsIgnoreCase("ROLE_ADMIN"));
 
         if (post.getCreatedBy().equals(currentUser) || isAdmin) {
             // Update post logic
