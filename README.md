@@ -14,15 +14,14 @@
 
 ##### Below image Illustrates how to create Create a new Blog Post
 #### N/B only authenticated users are allowed to add blog posts
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/42e773e6-d5b7-4a74-b967-ea236fec49b8)
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/07229024-039a-4303-a39c-7c79436968c1)
 ##### Expected ouput with successful post request for the blog post is as shown below
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/5efa198b-354f-484f-b20e-36b8396c6b30)
-
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/668a4c50-0b43-4a7c-9480-52c3496f0f43)
 ##### To retrieve all blog posts use the get all blog posts as shown below.
 ##### N/B provide the params requied for retrieving the posts as the posts are paged. Default values are provided for the same
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d756396b-aee9-4750-938a-043c5e6327aa)
 ##### Below shows the list of retrieved posts paged data
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/6983f67f-2a12-45e9-9033-939d3fea7887)
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d0b5b41c-e838-4cbf-82af-aa8d7fa30392)
 ##### For deleting and updating of blog posts, one can only perform these actions if they created the post or have "ROLE_ADMIN" authority.
 ##### Below shows response for users with no "ROLE_ADMIN" trying to delete blog posts they didn't create
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/9eab2223-d91e-4abb-923c-4d0f593a96b7)
