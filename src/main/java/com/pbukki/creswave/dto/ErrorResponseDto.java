@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor(staticName = "build")
-public class ErrorResponseDto {
+public class ErrorResponseDto
+{
     private LocalDateTime errorTime;
     private int errorCode;
     private String errorMsg;

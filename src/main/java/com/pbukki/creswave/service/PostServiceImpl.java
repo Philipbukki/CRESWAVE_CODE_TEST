@@ -32,7 +32,6 @@ public class PostServiceImpl implements PostService {
     private AuthService authService;
 
 
-
     private Post getPostByIdOrThrow(Long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "id", postId)

@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
 @Schema(
         name = "Comments",
         description = "Table holding Post Comments Data"
@@ -28,4 +31,5 @@ public class CommentDto {
     private Post post;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String createdBy;
+    private LocalDateTime createdAt;
 }

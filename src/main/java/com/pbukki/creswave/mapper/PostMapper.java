@@ -17,6 +17,7 @@ public class PostMapper {
         postDto.setComments(post.getComments());
         postDto.setCreatedBy(post.getCreatedBy());
         postDto.setId(post.getId());
+        postDto.setCreatedAt(post.getCreatedAt());
         return postDto;
     }
 
