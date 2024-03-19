@@ -38,5 +38,6 @@
 ##### Below is the endpoint for updating user profile details, have restricted this to only name and user password
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/bc6d99dc-8fd8-41ea-a1e1-fa7a2388daae)
 ##### To run the project, clone this project from this repository and edit the application.yml file for the db name and db credentials
-##### Incase you of any queries, reach out to me on email phil.bukki@gmail.com or on +254798335550
+##### In case of any queries or challenges while running the project, please do not hesitate to contact me via email at phil.bukki@gmail.com or by phone at +254798335550.
+
 
