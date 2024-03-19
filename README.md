@@ -1,33 +1,42 @@
-#### Access the application using the link: http://localhost:8080/swagger-ui/index.html#/
-#### Users are created with default role of "ROLE_USER"
-#### To add "ROLE_ADMIN" for testing purposes, after running the application, insert one in roles table, with id 2 and name "ROLE_ADMIN" 
-#### additionaly add one record with an existing user Id i.e 1 and role id of 2 in user_roles table.
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/f140cafd-f4ce-451f-aba3-f14101b27ac8)
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/16582bfa-196c-4af1-8d51-c5dc4c182cf4)
-#### Start by creating the user using the register endpoint and then use login endpoint to login to the app.
+##### Access the application using the link: http://localhost:8080/swagger-ui/index.html#/
+##### First step is to add user roles, add one with name "ROLE_ADMIN" and another with name "ROLE_USER"
+#### N/B role the above two role names are necessary for creating users and the names MUST match
+##### Users are created with default role of "ROLE_USER"
+##### To create admin user, create one user with username "admin", this is mandatory as it will help in testing RBAC
+##### After role additions create users using the register endpoint, remember for admin user, username must be "admin" 
+##### Login to the application using the above created user details using login/signup endpoints.
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d94db8d1-23be-43ee-8286-022c5c732c31)
-### Expected out put incase of successful login/SignIn
+##### Expected output incase of successful login/SignIn is as shown below.
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/877e2a90-03a4-40f3-97cb-f4b92d1680f0)
-#### Illustrates how to create Create a new Blog Post 
+##### Copy the generated authentication token, and use it as shown below using the Authorize button.
+##### This will enable you access all the endpoints without having to sign in each and every time.
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/0980994c-f3ce-4f58-a0c2-c2072d44a3ea)
+
+##### Below image Illustrates how to create Create a new Blog Post
+#### N/B only authenticated users are allowed to add blog posts
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/42e773e6-d5b7-4a74-b967-ea236fec49b8)
-#### Expected ouput with successful post request for the blog post
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/27826246-a93c-4821-97ba-dd0e3bdd8e16)
-#### Endpoint to get all blog posts
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/8a0896d4-f109-4b31-a8e3-3fd29ecbaee4)
-#### Expected results 
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/054d8efd-61d3-424c-bc74-71628a2f83aa)
-#### Endpoint to delete a post and expected result on successful request, this can only be done by admin user or the post creator
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/bc0561b9-44ad-42d7-9535-5d71813057b8)
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/8bb9748e-815c-4c3f-ac54-2b485218bf8b)
-#### Endpoint to update a post, this can only be done by admin user or the post creator
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/55699d7b-e7b6-482c-ae2f-840ca388bcde)
-#### Response when the user is not an admin or did not create the post
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/8b6546a2-8d66-4dfd-82cb-0d119dbf5678)
-#### To test comment endpoints, follow the guidlines in the swagger documentation for such endpoints I have implemented
-#### Role based access controll is also implemented for these endpoints
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/51c01093-af35-41e0-ae1f-3066787aa0f7)
-#### Below is the endpoint for updating user profile
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/c55f1fd7-5ab0-406b-8eb8-ccc55b9157fc)
-#### To run the project, clone this project and edit the application.yml file for the db name and db credentials
-#### Incase you of any queries, reach out to me on email phil.bukki@gmail.com or on +254798335550
+##### Expected ouput with successful post request for the blog post is as shown below
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/5efa198b-354f-484f-b20e-36b8396c6b30)
+
+##### To retrieve all blog posts use the get all blog posts as shown below.
+##### N/B provide the params requied for retrieving the posts as the posts are paged. Default values are provided for the same
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d756396b-aee9-4750-938a-043c5e6327aa)
+##### Below shows the list of retrieved posts paged data
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/6983f67f-2a12-45e9-9033-939d3fea7887)
+##### For deleting and updating of blog posts, one can only perform these actions if they created the post or have "ROLE_ADMIN" authority.
+##### Below shows response for users with no "ROLE_ADMIN" trying to delete blog posts they didn't create
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/9eab2223-d91e-4abb-923c-4d0f593a96b7)
+##### To add comment to a blog post, specify postId as a path varible to be able to proceed, below image illustrates the same
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/14266fb1-104b-4795-9030-e02690b62d76)
+##### The image below shows response after successfully posting a comment to a post
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/cab64be4-d201-4101-a412-15dcd40fd466)
+##### To retrieve all comments belonging to a post, provide the necessary request parameters, default values have been provided
+##### Below is an example reponse for such request
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/172773bb-c956-4d42-b835-5a8c25baad33)
+##### To delete and update blog post comment, provide the post id and comment id for the comment you want to delete
+##### N/B Only the comment poster or user with role "ROLE_ADMIN" can perform the above actions
+##### Below is the endpoint for updating user profile details, have restricted this to only name and user password
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/bc6d99dc-8fd8-41ea-a1e1-fa7a2388daae)
+##### To run the project, clone this project from this repository and edit the application.yml file for the db name and db credentials
+##### Incase you of any queries, reach out to me on email phil.bukki@gmail.com or on +254798335550
 
