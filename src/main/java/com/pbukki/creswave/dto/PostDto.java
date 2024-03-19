@@ -2,6 +2,7 @@ package com.pbukki.creswave.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pbukki.creswave.entity.Comment;
 import com.pbukki.creswave.entity.Post;
 import com.pbukki.creswave.entity.User;
@@ -23,7 +24,7 @@ import java.util.Set;
 @Builder
 public class PostDto {
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
     @NotBlank(message = "Title cannot be blank")
     @Schema(name = "title", example = "Effective Java")

@@ -6,7 +6,8 @@ import lombok.Data;
 import java.util.List;
 @AllArgsConstructor(staticName = "build")
 @Data
-public class CommentResponseDto {
+public class CommentResponseDto
+{
     private List<CommentDto> content;
     private long pageNo;
     private long pageSize;

@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "posts")
 @NoArgsConstructor @AllArgsConstructor
 @Setter @Getter
-public class Post extends BaseEntity{
+public class Post extends BaseEntity
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

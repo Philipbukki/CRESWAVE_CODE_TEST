@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommentDto {
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
     @NotBlank(message = "Comment Body cannot be blank")
     private String body;

@@ -96,7 +96,7 @@ public class PostServiceImpl implements PostService {
             return PostMapper.MapToDto(savedPost, new PostDto());
 
         } else {
-            throw new UnAuthorizedUserException("You can't delete a post belonging to someone else");
+            throw new UnAuthorizedUserException("You can't update a post belonging to someone else");
         }
 
     }
