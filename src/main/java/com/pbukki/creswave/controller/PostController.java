@@ -137,11 +137,11 @@ public class PostController {
 
     @GetMapping("/search")
     public ResponseEntity<List<PostDto>> searchPostsByTitleOrContent(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String content)
+
+            @RequestParam(required = false) String queryParam)
     {
 
-        return  ResponseEntity.ok(postService.findByTitleOrContent(title,content));
+        return  ResponseEntity.ok(postService.findByTitleOrContent(queryParam));
 
     }
 

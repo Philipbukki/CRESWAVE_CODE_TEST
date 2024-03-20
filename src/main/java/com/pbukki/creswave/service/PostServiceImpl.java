@@ -122,8 +122,8 @@ public class PostServiceImpl implements PostService {
 
     //Filters blog posts by their title or content
     @Override
-    public List<PostDto> findByTitleOrContent(String title, String content) {
-        List<Post> posts = postRepository.findByTitleContainingOrContentContaining(title, content);
+    public List<PostDto> findByTitleOrContent(String query) {
+        List<Post> posts = postRepository.findByTitleOrContent(query);
 
         return posts.stream().map(post -> PostMapper.MapToDto(post, new PostDto()))
                 .collect(Collectors.toList());

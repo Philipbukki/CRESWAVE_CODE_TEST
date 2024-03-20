@@ -11,7 +11,7 @@ public interface PostService {
     PostResponseDto listPosts(int pageNo, int pageSize, String sortBy, String sortDir);
     PostDto getPost(long postId);
     PostDto updatePost(PostDto postDto, long postId);
-    List<PostDto> findByTitleOrContent(String title, String content);
+    List<PostDto> findByTitleOrContent(String query);
     String deletePost(long postId);
 
 }
