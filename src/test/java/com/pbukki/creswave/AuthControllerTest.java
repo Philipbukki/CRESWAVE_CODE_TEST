@@ -42,7 +42,7 @@ public class AuthControllerTest {
     @Test
     public void testUpdateProfile_validData() {
         // Mock AuthService
-        ProfileUpdateDto updateDto = ProfileUpdateDto.build("username",null);
+        ProfileUpdateDto updateDto = ProfileUpdateDto.build("username");
 
         String expectedResponse = "Profile Updated Successfully";
         AuthService mockAuthService = Mockito.mock(AuthService.class);

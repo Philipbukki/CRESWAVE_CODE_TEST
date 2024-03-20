@@ -149,23 +149,14 @@ public class AuthServiceImpl implements AuthService{
         User userToUpdate = userRepository.findByUsernameOrEmail(currentUser,currentUser).orElseThrow(
                 ()-> new BlogErrorException("You are not authorized to update this user profile")
         );
-
         log.info("Before updating user details");
         // Update user information
         userToUpdate.setName(updateDto.getName());
-        log.info("After updating some user details user details");
-
-        // Check if password is provided for update
-        if (updateDto.getPassword() != null && !updateDto.getPassword().isEmpty()) {
-            userToUpdate.setPassword(passwordEncoder.encode(updateDto.getPassword()));
-        }
-        log.info("After updating user details including possible password update");
+        log.info("After updating user details user details");
         // Save updated user
         userRepository.save(userToUpdate);
 
         return "User profile updated successfully";
     }
-
-
 
 }
