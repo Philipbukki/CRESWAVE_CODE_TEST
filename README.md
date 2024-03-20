@@ -46,7 +46,7 @@
 ##### Below image shows the list of all endpoints I have implemented
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/63a765e7-50e6-4e0c-9aec-0ded16a22759)
 ##### Before running the project create an empty database with the name "creswave" or the edited db name in application.yml file
-##### The db credentials are configured to work with MYSQL
+##### The db configuratons for this project are for MYSQL
 ##### Update the db credentials, password and username to match your local set up 
 ##### To run the project, clone this project by running git clone https://github.com/Philipbukki/CRESWAVE_CODE_TEST.git
 ##### In case of any queries or challenges while running the project, please do not hesitate to contact me via email at phil.bukki@gmail.com or by phone at +254798335550.
