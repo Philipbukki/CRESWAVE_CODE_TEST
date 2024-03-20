@@ -1,9 +1,6 @@
 package com.pbukki.creswave.controller;
 
-import com.pbukki.creswave.dto.JWTAuthResponse;
-import com.pbukki.creswave.dto.LoginDto;
-import com.pbukki.creswave.dto.ProfileUpdateDto;
-import com.pbukki.creswave.dto.RegisterDto;
+import com.pbukki.creswave.dto.*;
 import com.pbukki.creswave.entity.Role;
 import com.pbukki.creswave.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -73,6 +70,25 @@ public class AuthController {
     {
         String response = authService.register(registerDto);
         return  new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+
+    @Operation(
+            summary = "Rest User Password",
+            description = "Endpoint for Resetting User Password"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP STATUS OK"
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "HTTP STATUS BAD_REQUEST"
+    )
+    @PutMapping ("reset_password")
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody PasswordResetDto passwordResetDto)
+    {
+        return  new ResponseEntity<>(authService.resetPassword(passwordResetDto), HttpStatus.OK);
     }
 
     @Operation(

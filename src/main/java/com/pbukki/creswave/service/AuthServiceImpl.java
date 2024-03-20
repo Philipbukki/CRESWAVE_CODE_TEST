@@ -1,6 +1,7 @@
 package com.pbukki.creswave.service;
 
 import com.pbukki.creswave.dto.LoginDto;
+import com.pbukki.creswave.dto.PasswordResetDto;
 import com.pbukki.creswave.dto.ProfileUpdateDto;
 import com.pbukki.creswave.dto.RegisterDto;
 import com.pbukki.creswave.entity.Role;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +56,32 @@ public class AuthServiceImpl implements AuthService{
         return userRepository.findByUsernameOrEmail(username,username).orElseThrow(
                 ()-> new BlogErrorException("You have provided incorrect credentials")
         );
+    }
+
+    @Override
+    public String resetPassword(PasswordResetDto passwordResetDto)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = authentication.getName();
+        User user = userRepository.findByUsername(currentUser).orElseThrow(
+                ()-> new BlogErrorException("Login to rest your password")
+        );
+        if(!passwordEncoder.matches(passwordResetDto.getOldPassword(),user.getPassword())){
+            throw new BlogErrorException("You have entered incorrect password");
+        }
+
+        if(passwordEncoder.matches(passwordResetDto.getNewPassword(),user.getPassword())){
+            throw new BlogErrorException("Password entered same with old password");
+        }
+
+        if(!passwordResetDto.getNewPassword().equals(passwordResetDto.getConfirmPassword())){
+            throw new BlogErrorException("The passwords do not match");
+
+        }
+        user.setPassword(passwordEncoder.encode(passwordResetDto.getConfirmPassword()));
+        userRepository.save(user);
+
+        return "User password reset successfully";
     }
 
     @Override
