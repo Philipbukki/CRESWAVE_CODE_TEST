@@ -22,6 +22,11 @@
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d756396b-aee9-4750-938a-043c5e6327aa)
 ##### Below shows the list of retrieved posts paged data
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/d0b5b41c-e838-4cbf-82af-aa8d7fa30392)
+##### To search blog posts by title or content, enter the blog post title or content as shown below, result is
+##### a list of posts having content or title same as the one passed in the query param 
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/3ecee9ac-fcb1-4b4d-a4c4-b55ffaf44f21)
+##### Below is an example response for posts with title "Effective Java"
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/a96da75d-94c4-4edc-a478-261384bd9074)
 ##### For deleting and updating of blog posts, one can only perform these actions if they created the post or have "ROLE_ADMIN" authority.
 ##### Below shows response for users with no "ROLE_ADMIN" trying to delete blog posts they didn't create
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/9eab2223-d91e-4abb-923c-4d0f593a96b7)
