@@ -40,7 +40,7 @@
 ##### To delete and update blog post comment, provide the post id and comment id for the comment you want to delete
 ##### N/B Only the comment poster or user with role "ROLE_ADMIN" can perform the above actions
 ##### Below is the endpoint for updating user profile password
-##### Exceptions for this are well handled, ie the new password cannot be same to the new password, user must sign in to be able to update 
+##### Exceptions for this are well handled, ie the new password cannot be same to the old password, user must sign in to be able to update 
 ##### their password and the new password must be confirmed with same details
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/06e7cc0e-a5c6-456d-a504-77aafcafde07)
 ##### To run the project, clone this project from this repository and edit the application.yml file for the db name and db credentials
