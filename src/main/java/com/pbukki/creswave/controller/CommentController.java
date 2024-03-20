@@ -152,19 +152,16 @@ public class CommentController {
             responseCode = "400",
             description = "HTTP STATUS BAD_REQUEST",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-
     )
     @ApiResponse(
             responseCode = "401",
             description = "HTTP STATUS UNAUTHORIZED",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-
     )
     @ApiResponse(
             responseCode = "404",
             description = "HTTP STATUS NOT_FOUND",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-
     )
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable long postId, @PathVariable long commentId)

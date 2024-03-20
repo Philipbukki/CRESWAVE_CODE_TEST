@@ -31,5 +31,6 @@ public class CommentDto {
     private Post post;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String createdBy;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdAt;
 }
