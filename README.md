@@ -39,8 +39,12 @@
 ![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/172773bb-c956-4d42-b835-5a8c25baad33)
 ##### To delete and update blog post comment, provide the post id and comment id for the comment you want to delete
 ##### N/B Only the comment poster or user with role "ROLE_ADMIN" can perform the above actions
-##### Below is the endpoint for updating user profile details, have restricted this to only name and user password
-![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/bc6d99dc-8fd8-41ea-a1e1-fa7a2388daae)
+##### Below is the endpoint for updating user profile password
+##### Exceptions for this are well handled, ie the new password cannot be same to the old password, user must sign in to be able to update 
+##### their password and the new password must be confirmed with same details
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/06e7cc0e-a5c6-456d-a504-77aafcafde07)
+##### Below image shows the list of all endpoints I have implemented
+![image](https://github.com/Philipbukki/CRESWAVE_CODE_TEST/assets/43266759/63a765e7-50e6-4e0c-9aec-0ded16a22759)
 ##### To run the project, clone this project from this repository and edit the application.yml file for the db name and db credentials
 ##### In case of any queries or challenges while running the project, please do not hesitate to contact me via email at phil.bukki@gmail.com or by phone at +254798335550.
 
