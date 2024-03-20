@@ -4,12 +4,15 @@ import com.pbukki.creswave.dto.*;
 import com.pbukki.creswave.entity.Role;
 import com.pbukki.creswave.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +39,15 @@ public class AuthController {
 
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "500",
-            description = "INTERNAL SERVER ERROR"
+            description = "INTERNAL SERVER ERROR",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
 
     @PostMapping(value = {"/login", "/signIn"})
@@ -63,7 +70,9 @@ public class AuthController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @PostMapping (value={"register","signup"})
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto registerDto)
@@ -83,7 +92,9 @@ public class AuthController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @PutMapping ("reset_password")
     public ResponseEntity<String> resetPassword(@Valid @RequestBody PasswordResetDto passwordResetDto)
@@ -123,7 +134,9 @@ public class AuthController {
 
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @PostMapping("/add_role")
     public ResponseEntity<Role> addRole(@Valid @RequestBody Role role)

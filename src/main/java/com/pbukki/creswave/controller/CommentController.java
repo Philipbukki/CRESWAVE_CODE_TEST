@@ -2,9 +2,12 @@ package com.pbukki.creswave.controller;
 
 import com.pbukki.creswave.dto.CommentDto;
 import com.pbukki.creswave.dto.CommentResponseDto;
+import com.pbukki.creswave.dto.ErrorResponseDto;
 import com.pbukki.creswave.service.CommentService;
 import com.pbukki.creswave.utilities.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,11 +37,15 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED"
+            description = "HTTP STATUS UNAUTHORIZED",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "201",
@@ -59,7 +66,9 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @GetMapping
     public ResponseEntity<CommentResponseDto> getAllCommentsByPost(
@@ -82,11 +91,15 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
 
     @GetMapping("/{commentId}")
@@ -105,15 +118,21 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED"
+            description = "HTTP STATUS UNAUTHORIZED",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
 
     @PutMapping("/{commentId}")
@@ -131,15 +150,21 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED"
+            description = "HTTP STATUS UNAUTHORIZED",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable long postId, @PathVariable long commentId)

@@ -1,10 +1,13 @@
 package com.pbukki.creswave.controller;
 
+import com.pbukki.creswave.dto.ErrorResponseDto;
 import com.pbukki.creswave.dto.PostDto;
 import com.pbukki.creswave.dto.PostResponseDto;
 import com.pbukki.creswave.service.PostService;
 import com.pbukki.creswave.utilities.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -54,7 +57,8 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
     )
 
     @GetMapping("/{postId}")
@@ -85,15 +89,21 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED"
+            description = "HTTP STATUS UNAUTHORIZED",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
 
     @PutMapping("/{postId}")
@@ -111,15 +121,21 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND"
+            description = "HTTP STATUS NOT_FOUND",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED"
+            description = "HTTP STATUS UNAUTHORIZED",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
     @ApiResponse(
             responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
+            description = "HTTP STATUS BAD_REQUEST",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+
     )
 
     @DeleteMapping("/{postId}")
