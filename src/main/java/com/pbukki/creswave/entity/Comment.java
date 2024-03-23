@@ -23,6 +23,6 @@ public class Comment extends BaseEntity{
     private String body;
     @JsonBackReference
     @JoinColumn(name = "post_id")
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Post post;
 }
