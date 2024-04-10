@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -51,15 +52,17 @@ public class PostController {
             summary = "Retrieves a Post",
             description = "Endpoint for Getting a Single Post"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
-            responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-    )
+   @ApiResponses({
+           @ApiResponse(
+                   responseCode = "200",
+                   description = "HTTP STATUS OK"
+           ),
+           @ApiResponse(
+                   responseCode = "404",
+                   description = "HTTP STATUS NOT_FOUND",
+                   content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+           )
+   })
 
     @GetMapping("/{postId}")
     public ResponseEntity<PostDto> getPost(@PathVariable long postId)
@@ -83,28 +86,30 @@ public class PostController {
             summary = "Updates a Post",
             description = "Endpoint for Updating an Existing Post"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
-            responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP STATUS OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP STATUS NOT_FOUND",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
-    @ApiResponse(
-            responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "HTTP STATUS UNAUTHORIZED",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
+            )
+    })
 
     @PutMapping("/{postId}")
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto,@PathVariable long postId) throws InstantiationException, IllegalAccessException {
@@ -115,28 +120,30 @@ public class PostController {
             summary = "Delete Post",
             description = "Endpoint for Deleting a Blog Post"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
-            responseCode = "404",
-            description = "HTTP STATUS NOT_FOUND",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP STATUS OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP STATUS NOT_FOUND",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
-    @ApiResponse(
-            responseCode = "401",
-            description = "HTTP STATUS UNAUTHORIZED",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "HTTP STATUS UNAUTHORIZED",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
+            )
+    })
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable long postId) throws InstantiationException, IllegalAccessException {

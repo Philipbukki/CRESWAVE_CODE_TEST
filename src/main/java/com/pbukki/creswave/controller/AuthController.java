@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -32,23 +33,24 @@ public class AuthController {
             summary = "Login/SignIn User",
             description = "Endpoint for User Login"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP STATUS OK"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "INTERNAL SERVER ERROR",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
-    @ApiResponse(
-            responseCode = "500",
-            description = "INTERNAL SERVER ERROR",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-
-    )
+            )
+    })
 
     @PostMapping(value = {"/login", "/signIn"})
     public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
@@ -64,16 +66,18 @@ public class AuthController {
             summary = "Register/SignUp User",
             description = "Endpoint for User Registration"
     )
-    @ApiResponse(
-            responseCode = "201",
-            description = "HTTP STATUS CREATED"
-    )
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP STATUS CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
+            )
+    })
     @PostMapping (value={"register","signup"})
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto registerDto)
     {
@@ -86,16 +90,18 @@ public class AuthController {
             summary = "Rest User Password",
             description = "Endpoint for Resetting User Password"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP STATUS OK"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
 
-    )
+            )
+    })
     @PutMapping ("reset_password")
     public ResponseEntity<String> resetPassword(@Valid @RequestBody PasswordResetDto passwordResetDto)
     {
@@ -106,14 +112,17 @@ public class AuthController {
             summary = "Update User Profile",
             description = "Endpoint for Updating User Profile"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP STATUS OK"
-    )
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST"
-    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP STATUS OK"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST"
+            )
+    })
+
     @PutMapping("/update_profile")
     public ResponseEntity<String> updateProfile(@Valid @RequestBody ProfileUpdateDto updateDto)
     {
@@ -127,17 +136,18 @@ public class AuthController {
             summary = "Add User Role",
             description = "Endpoint for Adding Available System User Roles"
     )
-    @ApiResponse(
-            responseCode = "201",
-            description = "HTTP STATUS CREATED"
-    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP STATUS CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP STATUS BAD_REQUEST",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
+            )
+    })
 
-    @ApiResponse(
-            responseCode = "400",
-            description = "HTTP STATUS BAD_REQUEST",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponseDto.class))
-
-    )
     @PostMapping("/add_role")
     public ResponseEntity<Role> addRole(@Valid @RequestBody Role role)
     {
