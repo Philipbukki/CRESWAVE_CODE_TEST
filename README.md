@@ -13,7 +13,7 @@ This project is a RESTful API that provides basic CRUD (Create, Read, Update, De
 
 **Steps**:
 1. Clone the repository: `git clone https://github.com/Philipbukki/CRESWAVE_CODE_TEST.git`
-2. Navigate to the project directory: `cd creswave`
+2. Navigate to the project directory: `cd CRESWAVE_CODE_TEST`
 3. Build the project: `mvn clean install`
 4. Run the project: `mvn spring-boot:run`
 
