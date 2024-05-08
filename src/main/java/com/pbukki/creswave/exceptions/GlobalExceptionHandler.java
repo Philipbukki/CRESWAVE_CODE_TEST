@@ -51,7 +51,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BlogErrorException.class)
     public ResponseEntity<ErrorResponseDto> handleBlogErrorException(
-            BlogErrorException ex, WebRequest webRequest){
+            BlogErrorException ex, WebRequest webRequest)
+    {
         ErrorResponseDto error = ErrorResponseDto.build(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),ex.getMessage()
                 ,webRequest.getDescription(false));
 

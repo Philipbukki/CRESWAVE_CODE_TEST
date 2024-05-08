@@ -13,10 +13,12 @@ import lombok.*;
         description = "Contains User Login Details Data"
 )
 public class LoginDto {
-    @NotBlank
+    @NotBlank(message = "username or email cannot be blank")
+    @NotNull(message = "username or email cannot be null")
     @Schema(name = "usernameOrEmail", example = "johndoe@gmail.com")
     private String usernameOrEmail;
-    @NotNull
+    @NotBlank(message = "password or email cannot be blank")
+    @NotNull(message = "password or email cannot be null")
     @Schema(name = "password", example = "abcd1234")
     private String password;
 }

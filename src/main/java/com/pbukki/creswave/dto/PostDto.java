@@ -1,11 +1,8 @@
 package com.pbukki.creswave.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pbukki.creswave.entity.Comment;
-import com.pbukki.creswave.entity.Post;
-import com.pbukki.creswave.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 @Tag(
-        name="REST Endpoints for Authentication",
+        name="User Authentication Endpoints",
         description = "Endpoints for Registering and Login"
 )
 public class AuthController {
@@ -87,7 +87,7 @@ public class AuthController {
 
 
     @Operation(
-            summary = "Rest User Password",
+            summary = "Reset User Password",
             description = "Endpoint for Resetting User Password"
     )
     @ApiResponses({

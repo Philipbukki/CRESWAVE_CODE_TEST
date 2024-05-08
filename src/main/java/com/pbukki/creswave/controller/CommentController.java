@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Tag(
-        name="Endpoints for Post Comments",
-        description = "REST Endpoints for create, read,fetch, update and delete operations Posts Comments"
+        name="Blog Posts Comments Endpoints",
+        description = "Endpoints for Comments CRUD Operations"
 )
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
@@ -33,7 +33,7 @@ public class CommentController {
     private CommentService commentService;
 
     @Operation(
-            summary = "Add Post Comment",
+            summary = "Add Comment to Post",
             description = "Endpoint for Adding comment to a Post"
     )
 
@@ -64,7 +64,7 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.addComment(postId, commentDto));
     }
     @Operation(
-            summary = "List Comments",
+            summary = "List Post Comments",
             description = "Endpoint for Comments on a Post"
     )
 

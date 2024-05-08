@@ -10,6 +10,9 @@ import com.pbukki.creswave.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -67,6 +70,7 @@ public class PostServiceImpl implements PostService {
 
     //Retrieves post by id
     @Override
+    @Cacheable(key = "#postId", value = "Post")
     public PostDto getPost(long postId)
     {
         Post post = postRepository.findById(postId).orElseThrow(
@@ -77,6 +81,7 @@ public class PostServiceImpl implements PostService {
 
     //Retrieves a post from the db using post id and updates the retrieved post
     @Override
+    @CachePut(key = "postId",value="updatedPost")
     public PostDto updatePost(PostDto updatedPost, long postId)
     {
         Post post = getPostByIdOrThrow(postId);
@@ -88,6 +93,7 @@ public class PostServiceImpl implements PostService {
                 .anyMatch(role -> role.equalsIgnoreCase("ROLE_ADMIN"));
 
         if (post.getCreatedBy().equals(currentUser) || isAdmin) {
+
             // Update post logic
             log.info("updating post");
             Post savedPost = postRepository.save(PostMapper.MapToEntity(updatedPost, post));
@@ -100,9 +106,11 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    @CacheEvict(key = "#postId", value = "Post")
     public String deletePost(long postId) {
 
         Post post = getPostByIdOrThrow(postId);
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = authService.getLoggedInUser().getUsername();

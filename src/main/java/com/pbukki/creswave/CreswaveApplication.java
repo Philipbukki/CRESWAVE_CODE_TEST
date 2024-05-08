@@ -6,13 +6,14 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @OpenAPIDefinition(
         info = @Info(
-                title="Creswave Blog App API Documentation",
-                description = "Creswave Blog App API Documentation for Blog Posts",
-                version = "v1",
+                title="Blog App API Documentation",
+                description = "Blog App API Documentation",
+                version = "0.0.1",
                 contact = @Contact(
                         name = "Philip Bukki",
                         email = "phil.bukki@gmail.com",
@@ -26,6 +27,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 )
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @SpringBootApplication
+@EnableCaching
 public class CreswaveApplication {
 
     public static void main(String[] args) {

@@ -26,8 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(
-        name="REST Endpoints for Posts",
-        description = "Endpoints for create, read,fetch, update and delete operations for posts"
+        name="Blog Posts Endpoints",
+        description = "Endpoints for Posts CRUD Operations"
 )
 public class PostController {
     private final PostService postService;
@@ -49,7 +49,7 @@ public class PostController {
         return ResponseEntity.ok(postService.listPosts(pageNo,pageSize,sortBy,sortDir));
     }
     @Operation(
-            summary = "Retrieves a Post",
+            summary = "Retrieve Post",
             description = "Endpoint for Getting a Single Post"
     )
    @ApiResponses({
@@ -70,7 +70,7 @@ public class PostController {
         return ResponseEntity.ok(postService.getPost(postId));
     }
     @Operation(
-            summary = "Add new Post",
+            summary = "Add Post",
             description = "Endpoint for Creating a Post"
     )
     @ApiResponse(
@@ -83,7 +83,7 @@ public class PostController {
         return new ResponseEntity<>(postService.createPost(postDto),HttpStatus.CREATED);
     }
     @Operation(
-            summary = "Updates a Post",
+            summary = "Update Post",
             description = "Endpoint for Updating an Existing Post"
     )
     @ApiResponses({
